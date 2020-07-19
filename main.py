@@ -14,16 +14,17 @@ def main():
 
     #以下是测试数据
     rule0 = "Accept"
-    rule1 = rule(
-        1,
-        "ACCEPT     tcp  --  192.168.1.1            0.0.0.0/0            tcp dpts:20000:30000\n"
-    )
-    ruleset.append(rule1)
-    rule2 = rule(
-        2,
-        "ACCEPT     tcp  --  192.168.1.1/24            10.2.2.2            tcp dpts:22222\n"
-    )
-    ruleset.append(rule2)
+    ruleset.append(
+        rule(
+            1,
+            "ACCEPT     tcp  --  192.168.1.1            0.0.0.0/0            tcp dpts:20000:30000\n"
+        ))
+    print(ruleset[0])
+    ruleset.append(
+        rule(
+            2,
+            "ACCEPT     tcp  --  192.168.1.1/24            10.2.2.2            tcp dpts:22222\n"
+        ))
     ruleset.append(
         rule(
             3,
@@ -63,6 +64,7 @@ def main():
         #print(len(r.cset))
 
     #测试数据
+
     infoset = []
     info0 = Interface.InterfaceInfo("ens33", "10.2.2.2", "255.255.255.0")
     info1 = Interface.InterfaceInfo("lo", "127.0.0.1", "0.0")

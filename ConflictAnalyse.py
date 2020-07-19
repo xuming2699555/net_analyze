@@ -19,7 +19,7 @@ def ConflictAnalyse(ruleset, sttree, dttree):
         rule.stnode = sttree.insert(rule)
         rule.dtnode = dttree.insert(rule)
         pset.insert(rule)
-
+    print("nodes=======>", ruleset[0].stnode.__dict__)
     print("sttree node count:", sttree.nodecount)
     print("dttree node count:", dttree.nodecount)
 

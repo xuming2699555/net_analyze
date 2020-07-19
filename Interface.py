@@ -32,11 +32,11 @@ class InterfaceInfo():
 def InterfaceAnalyse(infoset, dttree, natPreRuleSet):
     #infoset代表网口信息集合，dttree代表了filter规则集合，而natruleset代表了dnat规则集合
 
-    #infoset = []
-    # info0 = InterfaceInfo("ens33", "10.2.2.2", "255.255.255.0")
-    # info1 = InterfaceInfo("lo", "127.0.0.1", "0.0")
-    # infoset.append(info0)
-    # infoset.append(info1)
+    infoset = []
+    info0 = InterfaceInfo("ens33", "10.2.2.2", "255.255.255.0")
+    info1 = InterfaceInfo("lo", "127.0.0.1", "0.0")
+    infoset.append(info0)
+    infoset.append(info1)
 
     #分析规则遗漏
     for info in infoset:
@@ -51,6 +51,8 @@ def InterfaceAnalyse(infoset, dttree, natPreRuleSet):
             continue
         for rule in node.markrule:
             info.ruleset.append(rule)
+    for info in infoset:
+        print(info.name, info.dnatset, info.dnatrouteset, info.ruleset)
 
 
-#遍历结束之后，每个info都关联了三个接口，对应三种漏洞
+#遍历结束之后，每个info都关联了三个set，对应三种漏洞
