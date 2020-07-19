@@ -1,3 +1,5 @@
+import MysqlInterface
+
 def updateConflictAnalyseData(ruleset):
     # 此函数用于规则冲突分析结果据上传
     f = open("output/ruleAnalyse_output.txt", mode="w+")
@@ -20,6 +22,22 @@ def updateNICAnalyseData(data):
     for info in data:
         print("-----------------------------------------")
         f.write("-----------------------------------------\n")
-        print("网口名称：", info.name, "\n可能导致filter规则无效的dnat规则：", info.dnatset,"\n可能导致隐藏路径访问本机的dnat规则：", info.dnatrouteset, "\n针对本机网口的filter规则：", info.ruleset)
-        f.write("网口名称：{}\n可能导致filter规则无效的dnat规则：{}\n可能导致隐藏路径访问本机的dnat规则：{}\n针对本机网口的filter规则：{}\n".format(info.name,info.dnatset,info.dnatrouteset, info.ruleset))
+        print("网口名称：", info.name, "\n可能导致filter规则无效的dnat规则：", info.dnatset,
+              "\n可能导致隐藏路径访问本机的dnat规则：", info.dnatrouteset, "\n针对本机网口的filter规则：", info.ruleset)
+        f.write("网口名称：{}\n可能导致filter规则无效的dnat规则：{}\n可能导致隐藏路径访问本机的dnat规则：{}\n针对本机网口的filter规则：{}\n".format(
+            info.name, info.dnatset, info.dnatrouteset, info.ruleset))
     f.close()
+
+#获取防火墙filter规则数据
+def GetRuleData(checkid, if_use_dao):
+    if if_use_dao == 1: #从数据库中读取数据
+        print("读取数据库数据……")
+
+    else: #直接读取参数数据
+        pass
+
+    return []
+
+#获取多网卡分析数据
+def GetInterfaceData(checkid):
+    return [], []
