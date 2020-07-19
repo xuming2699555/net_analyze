@@ -1,11 +1,14 @@
 import MysqlInterface
+import rule
+from config import configs
 
-def updateConflictAnalyseData(ruleset):
+
+def updateConflictAnalyseData(rule_set):
     # 此函数用于规则冲突分析结果据上传
     f = open("output/ruleAnalyse_output.txt", mode="w+")
     print("防火墙规则冲突分析结果")
     f.write("防火墙规则冲突分析结果\n")
-    for r in ruleset:
+    for r in rule_set:
         if len(r.cset) > 0:
             print("-----------------------------------------")
             f.write("-----------------------------------------\n")
@@ -28,16 +31,34 @@ def updateNICAnalyseData(data):
             info.name, info.dnatset, info.dnatrouteset, info.ruleset))
     f.close()
 
-#获取防火墙filter规则数据
-def GetRuleData(checkid, if_use_dao):
-    if if_use_dao == 1: #从数据库中读取数据
+
+# 获取防火墙filter规则数据
+def GetRuleData(check_id, if_use_dao):
+    ruleTableName = configs.table_name[0]
+    filterInputRule = []
+    filterOutputRule = []
+    natPreRule = []
+    if if_use_dao == 1:  # 从数据库中读取数据
         print("读取数据库数据……")
-        column = Mysql
-    else: #直接读取参数数据
+        column = MysqlInterface.Get_Table_Column(configs.host, configs.username, configs.password, configs.database,
+                                                 ruleTableName)
+        ruleRawData = MysqlInterface.Get_Raw_Data(configs.host, configs.username, configs.password, configs.database,
+                                                  check_id, ruleTableName, column)
+        for oneRuleData in ruleRawData:
+            if oneRuleData["_type"] == 1:
+                filterInputRule.append(rule.rule().rawRuleFormat(oneRuleData["order"], oneRuleData["content"]))
+            elif oneRuleData["_type"] == 2:
+                filterOutputRule.append(rule.rule().rawRuleFormat(oneRuleData["order"], oneRuleData["content"]))
+            elif oneRuleData["_type"] == 5:
+                natPreRule.append(rule.rule().rawRuleFormat(oneRuleData["order"], oneRuleData["content"]))
+
+        return filterInputRule, filterOutputRule, natPreRule
+    else:  # 直接读取参数数据
         pass
 
-    return []
+    return [], [], []
 
-#获取多网卡分析数据
-def GetInterfaceData(checkid):
+
+# 获取多网卡分析数据
+def GetInterfaceData(check_id):
     return [], []

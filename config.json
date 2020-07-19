@@ -1,8 +1,8 @@
 {
-  "host": 0,
+  "host": "localhost",
   "username": 0,
   "password": 0,
   "database": 0,
-  "table_name": [],
+  "table_name": ["zb1_NetworkAccessControl"],
   "data_file": []
 }
