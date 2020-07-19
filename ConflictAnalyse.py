@@ -19,36 +19,56 @@ def ConflictAnalyse(ruleset, sttree, dttree):
         rule.stnode = sttree.insert(rule)
         rule.dtnode = dttree.insert(rule)
         pset.insert(rule)
-    print("nodes=======>", ruleset[0].stnode.__dict__)
-    print("sttree node count:", sttree.nodecount)
-    print("dttree node count:", dttree.nodecount)
 
     #冲突分析
     for rule in ruleset:
         #构造sip元组的冲突集
         sipcset = set()
+        sipConflictUnderSet = set()
+        sipConflictUpperSet = set()
         for r in rule.stnode.passrule:
             sipcset.add(r.order)
+            sipConflictUnderSet.add(r.order)
         for r in rule.stnode.markrule:
             sipcset.add(r.order)
+            sipConflictUnderSet.add(r.order)
+            sipConflictUpperSet.add(r.order) #本节点的冲突规则同时属于两类冲突集
+        #遍历父节点，获取被包含的冲突集
+        tempPtr = rule.stnode
+        while tempPtr.preNode != None:
+            tempPtr = tempPtr.preNode
+            for r in tempPtr.markrule:
+                sipcset.add(r.order)
+                sipConflictUpperSet.add(r.order)
 
         #构造dip元组的冲突集
         dipcset = set()
+        dipConflictUnderSet = set()
+        dipConflictUpperSet = set()
         for r in rule.dtnode.passrule:
             dipcset.add(r.order)
-        for r in rule.stnode.markrule:
+            dipConflictUnderSet.add(r.order)
+        for r in rule.dtnode.markrule:
             dipcset.add(r.order)
+            dipConflictUnderSet.add(r.order)
+            dipConflictUpperSet.add(r.order) #本节点的冲突规则同时属于两类冲突集
+        #遍历父节点，获取被包含的冲突集
+        tempPtr = rule.dtnode
+        while tempPtr.preNode != None:
+            tempPtr = tempPtr.preNode
+            for r in tempPtr.markrule:
+                dipcset.add(r.order)
+                dipConflictUpperSet.add(r.order)
 
         #构造两个端口元组的冲突集
         portcset = pset.check(rule)
 
         #求交集
         cset = sipcset.intersection(dipcset)
+        #
         if portcset != None:
             cset = cset.intersection(set(portcset))
-        print("sip冲突集：", sipcset, "           dip冲突集：", dipcset,
-              "         端口冲突集：", portcset, "     交集：", cset)
 
         #移除自身
-        cset.remove(r.order)
+        cset.remove(rule.order)
         rule.cset = cset

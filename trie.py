@@ -13,6 +13,8 @@ class TrieNode():
         #子树
         self.left = None
         self.right = None
+        #用于回溯节点
+        self.preNode = None
 
 
 class TrieTree():
@@ -40,12 +42,14 @@ class TrieTree():
             if addr[temp] == "0":
                 if ptr.left == None:
                     ptr.left = TrieNode()
+                    ptr.left.preNode = ptr #新建节点的父节点
                     self.nodecount += 1
                 ptr = ptr.left
             else:
                 if ptr.right == None:
                     #新建节点
                     ptr.right = TrieNode()
+                    ptr.right.preNode = ptr #新建节点的父节点
                     self.nodecount += 1
                 ptr = ptr.right
             temp += 1

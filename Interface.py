@@ -32,27 +32,20 @@ class InterfaceInfo():
 def InterfaceAnalyse(infoset, dttree, natPreRuleSet):
     #infoset代表网口信息集合，dttree代表了filter规则集合，而natruleset代表了dnat规则集合
 
-    infoset = []
-    info0 = InterfaceInfo("ens33", "10.2.2.2", "255.255.255.0")
-    info1 = InterfaceInfo("lo", "127.0.0.1", "0.0")
-    infoset.append(info0)
-    infoset.append(info1)
-
     #分析规则遗漏
     for info in infoset:
         for dnatrule in natPreRuleSet:
             if dnatrule.dip.ip_addr == info.inet:  #当转发规则的目的ip等于端口ip时，会造成针对该ip的filter规则无效
-                info.dnatset.append(dnatrule)
+                info.dnatset.append(dnatrule.order)
                 for inf in infoset:  #再次遍历网口地址，如果dnat规则的目的ip关联本机网口，而转换ip也是本机网口，则导致隐藏路径
                     if dnatrule.nat == inf.inet:
-                        info.dnatrouteset.append(dnatrule)
+                        info.dnatrouteset.append(dnatrule.order)
         node = dttree.search(info.binnet, 32)
         if node == None:
             continue
         for rule in node.markrule:
-            info.ruleset.append(rule)
-    for info in infoset:
-        print(info.name, info.dnatset, info.dnatrouteset, info.ruleset)
+            info.ruleset.append(rule.order)
+
 
 
 #遍历结束之后，每个info都关联了三个set，对应三种漏洞
