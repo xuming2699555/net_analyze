@@ -1,8 +1,8 @@
 {
-  "host": "localhost",
-  "username": 0,
-  "password": 0,
-  "database": 0,
-  "table_name": ["zb1_NetworkAccessControl"],
+  "host": "0.0.0.0",
+  "username": "root",
+  "password": 123456,
+  "database": "test",
+  "table_name": ["zb1_NetworkAccessControl", "zb1_NetworkAccessControl_datanet","zb1_NetworkAccessControl_conflict","zb1_NetworkAccessControl_multiNIC"],
   "data_file": []
 }

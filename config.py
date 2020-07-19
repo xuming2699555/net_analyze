@@ -1,7 +1,8 @@
 # -*- coding: UTF-8 -*-
 import json
 
-class config():
+
+class config:
     def __init__(self):
         f = open("config.json", mode="r")
         text = f.read()

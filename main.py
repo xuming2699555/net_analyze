@@ -15,7 +15,7 @@ def main(*args):
         print("参数错误， 请填写 $checkid 和 $使用数据库数据（1）或者自定义和数据（0）")
         return -100, "参数错误"
     filterInputRule, filterOutputRule, natPreRule = util.GetRuleData(checkid, if_use_dao)  # 由filter表所有链上的规则组合而成
-    info_set = util.GetInterfaceData(checkid)  # nat表的preRouting链上的规则,网口数据
+    interface_set = util.GetInterfaceData(checkid)  # nat表的preRouting链上的规则,网口数据
 
     # 以下是测试数据
     # rule0 = "Accept"
@@ -37,8 +37,8 @@ def main(*args):
 
     # info0 = Interface.InterfaceInfo("ens33", "10.2.2.2", "255.255.255.0")
     # info1 = Interface.InterfaceInfo("lo", "127.0.0.1", "0.0")
-    # info_set.append(info0)
-    # info_set.append(info1)
+    # interface_set.append(info0)
+    # interface_set.append(info1)
 
     # 固定写法，生成针对源ip和目的ip的两颗分类树
     sttree = trie.TrieTree(0)
@@ -47,13 +47,12 @@ def main(*args):
     # 规则集的冲突分析
     ConflictAnalyse(filterInputRule, sttree, dttree)
     # 结果输出
-    util.updateConflictAnalyseData(filterInputRule)
+    util.updateConflictAnalyseData(filterInputRule, 1, checkid)
 
     # 多网口漏洞分析
-    Interface.InterfaceAnalyse(info_set, dttree, natPreRule)
-
+    Interface.InterfaceAnalyse(interface_set, dttree, natPreRule)
     # 结果输出
-    util.updateNICAnalyseData(info_set)
+    util.updateNICAnalyseData(interface_set, checkid)
 
 
 if __name__ == '__main__':
