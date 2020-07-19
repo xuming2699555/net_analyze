@@ -61,4 +61,4 @@ def GetRuleData(check_id, if_use_dao):
 
 # 获取多网卡分析数据
 def GetInterfaceData(check_id):
-    return [], []
+    return []

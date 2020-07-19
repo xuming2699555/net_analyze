@@ -7,7 +7,7 @@ class config():
         text = f.read()
         f.close()
         paras = json.loads(text)
-        self.host = paras["HOST"]
+        self.host = paras["host"]
         self.username = paras["username"]
         self.password = paras["password"]
         self.database = paras["database"]

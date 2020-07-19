@@ -4,3 +4,4 @@ dao
 venv
 .idea
 .idea/*
+output/*
