@@ -1,8 +1,5 @@
 # -*- coding: UTF-8 -*-
-import config
 from ipAddrConverter import ipAddrConverter
-import trie
-
 
 # 多网卡漏洞检测模块
 

@@ -1,8 +1,5 @@
 # -*- coding: UTF-8 -*-
-import trie
 import portset
-import config
-
 
 # 冲突分析主函数，输入：规则集、待插入节点的源IP的分类树、currule->Rule目的IP的分类树
 # 输出： 将在规则集中每个规则对象添加cset属性，代表与该规则发生冲突的规则集合

@@ -1,6 +1,4 @@
 # -*- coding: UTF-8 -*-
-from rule import rule
-from ipAddrConverter import ipAddrConverter
 
 
 class TrieNode():
