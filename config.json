@@ -1,8 +1,8 @@
 {
-    "host": 0,
-    "username": 0,
-    "password": 0,
-    "database": 0,
-    "table_name": [],
-    "data_file": []
+  "host": 0,
+  "username": 0,
+  "password": 0,
+  "database": 0,
+  "table_name": [],
+  "data_file": []
 }

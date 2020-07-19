@@ -32,7 +32,7 @@ def updateNICAnalyseData(data):
 def GetRuleData(checkid, if_use_dao):
     if if_use_dao == 1: #从数据库中读取数据
         print("读取数据库数据……")
-
+        column = Mysql
     else: #直接读取参数数据
         pass
 

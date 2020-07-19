@@ -11,13 +11,13 @@ def main(*args):
     try:
         checkid = args[0][1]
         if_use_dao = args[0][2]
-    except :
+    except:
         print("参数错误， 请填写 $checkid 和 $使用数据库数据（1）或者自定义和数据（0）")
         return -100, "参数错误"
-    ruleset = util.GetRuleData(checkid, if_use_dao) #由filter表所有链上的规则组合而成
-    natPreRuleSet, infoset = util.GetInterfaceData(checkid) #nat表的prerouting链上的规则,网口数据
+    ruleset = util.GetRuleData(checkid, if_use_dao)  # 由filter表所有链上的规则组合而成
+    natPreRuleSet, infoset = util.GetInterfaceData(checkid)  # nat表的prerouting链上的规则,网口数据
 
-    #以下是测试数据
+    # 以下是测试数据
     # rule0 = "Accept"
     # rawRule1 = "ACCEPT     tcp  --  192.168.1.1            0.0.0.0/0            tcp dpts:20000:30000\n"
     # rawRule2 = "ACCEPT     tcp  --  192.168.1.1/24            10.2.2.2            tcp dpts:22222\n"
@@ -40,19 +40,19 @@ def main(*args):
     # infoset.append(info0)
     # infoset.append(info1)
 
-    #固定写法，生成针对源ip和目的ip的两颗分类树
+    # 固定写法，生成针对源ip和目的ip的两颗分类树
     sttree = trie.TrieTree(0)
     dttree = trie.TrieTree(1)
 
-    #规则集的冲突分析
+    # 规则集的冲突分析
     ConflictAnalyse(ruleset, sttree, dttree)
-    #结果输出
+    # 结果输出
     util.updateConflictAnalyseData(ruleset)
 
-    #多网口漏洞分析
+    # 多网口漏洞分析
     Interface.InterfaceAnalyse(infoset, dttree, natPreRuleSet)
 
-    #结果输出
+    # 结果输出
     util.updateNICAnalyseData(infoset)
 
 

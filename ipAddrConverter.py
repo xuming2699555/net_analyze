@@ -1,7 +1,7 @@
 # -*- coding: UTF-8 -*-
 
 
-#ip表示的辅助函数
+# ip表示的辅助函数
 class ipAddrConverter():
     def __init__(self, ip_addr):
         self.ip_addr = ip_addr
