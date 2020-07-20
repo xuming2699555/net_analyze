@@ -12,6 +12,8 @@ def Upload_Raw_Data(Host, Username, Password, Database, TableName, Data, AutoFla
         charset="utf8")
     cursor = conn.cursor()
     # get column info
+    if len(Data) == 0:
+        return
     columnName = ', '.join('{}'.format(k) for k in Data[0].keys())
     columnValue = ', '.join('%({})s'.format(k) for k in Data[0].keys())
     # upload data to entitytable
@@ -47,10 +49,10 @@ def Get_Raw_Data(Host, Username, Password, Database, CheckID, TableName, ColumnN
     columnNeed = ', '.join('{}'.format(k) for k in ColumnNeed)
     # obtain data from table
     if CheckTable == None:
-        sql = "select {0} from {1} where CheckID = {2}" \
+        sql = "select {0} from {1} where checker_id = {2}" \
             .format(columnNeed, TableName, CheckID)
     else:
-        sql = "select {0} from {1} where {2} in (select {2} from {3} where CheckID = {4})" \
+        sql = "select {0} from {1} where {2} in (select {2} from {3} where checker_id = {4})" \
             .format(columnNeed, TableName, KeyColunm, CheckTable, CheckID)
     print("\nmysql>" + sql)
     cursor.execute(sql)

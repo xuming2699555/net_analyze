@@ -21,9 +21,9 @@ def updateConflictAnalyseData(rule_set, _type, check_id):
                 row = {
                     "checker_id": check_id,
                     "_type1": _type,
-                    "order1": r.order,
+                    "_order1": r.order,
                     "_type2": _type,
-                    "order2": cr,
+                    "_order2": cr,
                     "risk_type": "默认冲突"
                 }
                 rawData.append(row)
@@ -49,7 +49,7 @@ def updateNICAnalyseData(data,check_id):
                 "checker_id": check_id,
                 "info_ip": info.inet,
                 "_type": 5,
-                "order": r.order,
+                "_order": r.order,
                 "risk_type": "可能导致filter规则无效的dnat规则"
             }
             rawData.append(row)
@@ -58,7 +58,7 @@ def updateNICAnalyseData(data,check_id):
                 "checker_id": check_id,
                 "info_ip": info.inet,
                 "_type": 5,
-                "order": r.order,
+                "_order": r.order,
                 "risk_type": "可能导致隐藏路径访问本机的dnat规则"
             })
         for r in info.ruleset:
@@ -66,7 +66,7 @@ def updateNICAnalyseData(data,check_id):
                 "checker_id": check_id,
                 "info_ip": info.inet,
                 "_type": 1,
-                "order": r.order,
+                "_order": r.order,
                 "risk_type": "可能因为多网口而不会生效的filter规则"
             })
     MysqlInterface.Upload_Raw_Data(configs.host,configs.username,configs.password, configs.database, configs.table_name[3], rawData)
@@ -79,7 +79,7 @@ def GetRuleData(check_id, if_use_dao):
     filterInputRule = []
     filterOutputRule = []
     natPreRule = []
-    if if_use_dao == 1:  # 从数据库中读取数据
+    if if_use_dao == "1":  # 从数据库中读取数据
         print("读取数据库规则数据……")
         column = MysqlInterface.Get_Table_Column(configs.host, configs.username, configs.password, configs.database,
                                                  ruleTableName)
