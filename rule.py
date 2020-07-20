@@ -8,7 +8,7 @@ class rule():
     # 将规则原始行的解析行为单独作为一个方法，方便实现多种规则初始化方式
     def rawRuleFormat(self, order, ruleline):
         self.order = order
-        if ruleline[-1] == '\n':
+        while ruleline[-1] == '\n':
             ruleline = ruleline[0:-1]
         # 处理规则字符串ruleline
         rulelist = ruleline.split()

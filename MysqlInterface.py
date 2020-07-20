@@ -19,7 +19,7 @@ def Upload_Raw_Data(Host, Username, Password, Database, TableName, Data, AutoFla
     # upload data to entitytable
     sql = "insert into {0}({1}) values({2})" \
         .format(TableName, columnName, columnValue)
-    print("\nmysql>" + sql)
+    print("mysql>" + sql)
     cursor.executemany(sql, Data)
     conn.commit()
     # update checktable
@@ -54,7 +54,7 @@ def Get_Raw_Data(Host, Username, Password, Database, CheckID, TableName, ColumnN
     else:
         sql = "select {0} from {1} where {2} in (select {2} from {3} where checker_id = {4})" \
             .format(columnNeed, TableName, KeyColunm, CheckTable, CheckID)
-    print("\nmysql>" + sql)
+    print("mysql>" + sql)
     cursor.execute(sql)
     result = cursor.fetchall()
     data = []
@@ -83,7 +83,7 @@ def Update_Raw_Data(Host, Username, Password, Database, CheckID, TableName, Data
     # update data of table
     sql = "update {0} set {1} where {2}" \
         .format(TableName, columnUpdate, keyColumn)
-    print("\nmysql>" + sql)
+    print("mysql>" + sql)
     cursor.executemany(sql, Data)
     conn.commit()
     # close connect

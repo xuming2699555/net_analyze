@@ -87,11 +87,11 @@ def GetRuleData(check_id, if_use_dao):
                                                   check_id, ruleTableName, column)
         for oneRuleData in ruleRawData:
             if oneRuleData["_type"] == 1:
-                filterInputRule.append(rule.rule().rawRuleFormat(oneRuleData["order"], oneRuleData["content"]))
+                filterInputRule.append(rule.rule().rawRuleFormat(oneRuleData["_order"], oneRuleData["content"]))
             elif oneRuleData["_type"] == 2:
-                filterOutputRule.append(rule.rule().rawRuleFormat(oneRuleData["order"], oneRuleData["content"]))
+                filterOutputRule.append(rule.rule().rawRuleFormat(oneRuleData["_order"], oneRuleData["content"]))
             elif oneRuleData["_type"] == 5:
-                natPreRule.append(rule.rule().rawRuleFormat(oneRuleData["order"], oneRuleData["content"]))
+                natPreRule.append(rule.rule().rawRuleFormat(oneRuleData["_order"], oneRuleData["content"]))
 
         return filterInputRule, filterOutputRule, natPreRule
     else:  # 直接读取参数数据
